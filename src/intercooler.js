@@ -831,6 +831,14 @@ var Intercooler = Intercooler || (function() {
     }
   }
 
+  function restartPolling(elt) {
+    if (elt.data('ic-poll-interval-id') != null) {
+      clearTimeout(elt.data('ic-poll-interval-id'));
+      elt.data('ic-poll-interval-id', null);
+    }
+    startPolling(elt)
+  }
+
   function cancelPolling(elt) {
     if (elt.data('ic-poll-interval-id') != null) {
       clearTimeout(elt.data('ic-poll-interval-id'));
@@ -1815,6 +1823,7 @@ var Intercooler = Intercooler || (function() {
       initEventSource: function(url) {
         return new EventSource(url);
       }
-    }
+    },
+    restartPolling: restartPolling
   };
 })();
